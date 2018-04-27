@@ -1,5 +1,6 @@
-package IA;
+package joueur.ia;
 
+import mastermind.LigneProposition;
 import mastermind.Plateau;
 
 public class IA_aleatoire extends IA{
@@ -13,13 +14,13 @@ public class IA_aleatoire extends IA{
 	
 	//choisir un code aleatoirement
 	public void resolution() {
-		int[] essai = new int[p.getNbTrou()];
+		LigneProposition essai = new LigneProposition(p.getNbTrou());
 		
 		for(int i = 0; i < p.getNbTrou(); i++) {
-			essai[i] = 1 + (int)(Math.random() * ((p.getNbCouleur() -1)));
+			essai.setAt(i, 1 + (int)(Math.random() * ((p.getNbCouleur() -1))));
 		}
 		
-		System.out.println("Proposition de l'IA :" + essai[0]+essai[1]+essai[2]+essai[3]);
+		System.out.println("Proposition de l'IA :" + essai.toString());
 		p.ajouterEssai(essai);
 	}
 

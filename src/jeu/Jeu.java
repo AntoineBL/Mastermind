@@ -1,12 +1,13 @@
 package jeu;
 
-import IA.IA_Indice;
-import IA.IA_aleatoire;
+import joueur.ia.IAJoueurPassif;
+import joueur.ia.IA_aleatoire;
+import mastermind.CodeSolution;
 import mastermind.Plateau;
 
 public class Jeu {
 
-	private IA_Indice passif;
+	private IAJoueurPassif passif;
 	private IA_aleatoire actif;
 	private Plateau p;
 	private int nbTrou = 4;
@@ -14,14 +15,14 @@ public class Jeu {
 	
 	public Jeu() {
 		p = new Plateau(nbTrou, nbCouleur);
-		passif= new IA_Indice(p);
+		passif= new IAJoueurPassif(p);
 		actif = new IA_aleatoire(p);
 	}
 	
 	
 	public void jouer() {
 		
-		passif.choisirCode();
+		passif.choisirCode(new CodeSolution(nbTrou, nbCouleur));
 		
 		int nbTour = 0;
 		 do{
@@ -32,12 +33,10 @@ public class Jeu {
 			actif.resolution();
 			passif.resolution();
 			
-		}while (p.nbIndiceRouge() < nbTrou);
+		}while (p.getNbRouge() < nbTrou);
 		 
 		System.out.println("vous avez gnagné en "+nbTour+ ". La réponse est :");
-		for(int i = 0; i < nbTrou; i++) {
-			System.out.print(passif.getCode()[i]);
-		}
+		System.out.print(passif.getCode().toString());
 	}
 	
 }

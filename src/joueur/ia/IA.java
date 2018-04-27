@@ -1,4 +1,4 @@
-package IA;
+package joueur.ia;
 
 import mastermind.Plateau;
 

@@ -1,6 +1,6 @@
 package mastermind;
 
-public enum Indice {
+public enum PionIndice {
 
 	BLANC,
 	ROUGE;
