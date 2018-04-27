@@ -55,7 +55,7 @@ public class IA_Indice extends IA{
 			}			
 		}
 		
-		System.out.println(indice);
+		System.out.println(indice+"\n");
 		p.ajouterIndice(indice);
 		
 	}

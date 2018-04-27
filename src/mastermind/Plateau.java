@@ -58,7 +58,6 @@ public class Plateau {
 				nbRouge++;
 			}
 		}
-		System.out.println(nbRouge);
 		return nbRouge;
 	}
 	

@@ -26,7 +26,9 @@ public class Jeu {
 		int nbTour = 0;
 		 do{
 			nbTour++;
+			System.out.println("--------");
 			System.out.println("Tour "+nbTour);
+			System.out.println("--------");
 			actif.resolution();
 			passif.resolution();
 			
