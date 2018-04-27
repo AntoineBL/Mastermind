@@ -1,12 +1,14 @@
 package IA;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import mastermind.Indice;
 import mastermind.Plateau;
 
 public class IA_Indice extends IA{
 	
+    private static final Scanner SCANNER = new Scanner(System.in);
 	int[] code;
 
 	public IA_Indice(Plateau p) {
@@ -43,11 +45,13 @@ public class IA_Indice extends IA{
 				for(int j=0; j < p.getNbTrou(); j++) {
 					if(p.getEssais().get(p.getEssais().size()-1)[i] == code[j] && !traite[j]) {
 						indice.add(Indice.BLANC);
+						traite[i] = true;
 					}
 				}
 			}			
 		}
 		
+		System.out.println(indice);
 		p.ajouterIndice(indice);
 		
 	}
@@ -62,5 +66,11 @@ public class IA_Indice extends IA{
 		}
 		
 		p.choisirCodeSecret(code);
+		System.out.println("Code secret choisi aléatoirement : " + code[0]+code[1]+code[2]+code[3]);
+		System.out.println("---------------------------------------");
+	}
+	
+	public void choisirCodeManuel() {
+	    
 	}
 }

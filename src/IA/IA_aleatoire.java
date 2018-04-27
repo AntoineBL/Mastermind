@@ -18,6 +18,7 @@ public class IA_aleatoire extends IA{
 			essai[i] = 1 + (int)(Math.random() * ((p.getNbCouleur()) + 1));
 		}
 		
+		System.out.println("Proposition de l'IA :" + essai[0]+essai[1]+essai[2]+essai[3]);
 		p.ajouterEssai(essai);
 	}
 

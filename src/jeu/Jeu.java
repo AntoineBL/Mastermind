@@ -25,9 +25,11 @@ public class Jeu {
 		
 		int nbTour = 0;
 		 do{
+			nbTour++;
+			System.out.println("Tour "+nbTour);
 			actif.resolution();
 			passif.resolution();
-			nbTour++;
+			
 		}while (p.nbIndiceRouge() < nbTrou);
 		 
 		System.out.println("vous avez gnagné en "+nbTour+ ". La réponse est :");

@@ -54,9 +54,11 @@ public class Plateau {
 	public int nbIndiceRouge() {
 		int nbRouge = 0;
 		for (Indice i : indices.get(indices.size()-1)) {
-			nbRouge++;
+			if(i == Indice.ROUGE) {
+				nbRouge++;
+			}
 		}
-		
+		System.out.println(nbRouge);
 		return nbRouge;
 	}
 	
