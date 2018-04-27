@@ -10,7 +10,6 @@ public class IA_Indice extends IA{
 	
     private static final Scanner SCANNER = new Scanner(System.in);
 	int[] code;
-
 	public IA_Indice(Plateau p) {
 		super(p);
 		// TODO Auto-generated constructor stub
@@ -25,27 +24,32 @@ public class IA_Indice extends IA{
 	//ajout les indices pour le dernier essai
 	public void resolution() {
 		ArrayList<Indice> indice = new ArrayList<Indice>();
-		Boolean[] traite = new Boolean[p.getNbTrou()];
+		Boolean[] traiteSolution = new Boolean[p.getNbTrou()];
+		Boolean[] traiteProposition = new Boolean[p.getNbTrou()];
 			
 		//savoir si des pions sont a la bonne place
 		for(int i=0; i < p.getNbTrou(); i++) {
 			if(p.getEssais().get(p.getEssais().size()-1)[i] == code[i]) {
 				indice.add(Indice.ROUGE);
-				traite[i] = true;
+				traiteSolution[i] = true;
+				traiteProposition[i] = true;
 			}
 			else {
-				traite[i] = false;
+				traiteSolution[i] = false;
+				traiteProposition[i] = false;
+				
 			}
 		}
 		
-		
 		//savoir si il y a des pions à la mauvaise place
 		for(int i=0; i < p.getNbTrou(); i++) {
-			if(!traite[i]) {
+			if(!traiteProposition[i]) {
 				for(int j=0; j < p.getNbTrou(); j++) {
-					if(p.getEssais().get(p.getEssais().size()-1)[i] == code[j] && !traite[j]) {
+					if(p.getEssais().get(p.getEssais().size()-1)[i] == code[j] && !traiteSolution[j]) {
 						indice.add(Indice.BLANC);
-						traite[i] = true;
+						traiteProposition[i] = true;
+						traiteSolution[j] = true;
+						break;
 					}
 				}
 			}			
@@ -62,9 +66,11 @@ public class IA_Indice extends IA{
 		code = new int[p.getNbTrou()];
 		
 		for(int i = 0; i < p.getNbTrou(); i++) {
-			code[i] = 1 + (int)(Math.random() * ((p.getNbCouleur()) + 1));
+			code[i] = 1 + (int)(Math.random() * ((p.getNbCouleur() -1)));
 		}
 		
+		
+		//p.choisirCodeSecret(code);
 		p.choisirCodeSecret(code);
 		System.out.println("Code secret choisi aléatoirement : " + code[0]+code[1]+code[2]+code[3]);
 		System.out.println("---------------------------------------");
