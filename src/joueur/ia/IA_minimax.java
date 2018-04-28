@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import mastermind.LigneIndice;
 import mastermind.LigneProposition;
+import mastermind.PionIndice;
 import mastermind.Plateau;
 
 public class IA_minimax extends IA{
@@ -15,6 +17,7 @@ public class IA_minimax extends IA{
 	private List<LigneProposition> setU;
 	private boolean premierTour;
 	LigneProposition l = null;
+	LigneIndice lastIndice;
 	
 	public IA_minimax(Plateau p) {
 		super(p);
@@ -83,27 +86,81 @@ public class IA_minimax extends IA{
 		if(premierTour) {
 			l = setS.get(index);
 			p.ajouterEssai(l);
+			System.out.println("Proposition : " + l.toString());
+			setS.remove(l);
 			premierTour = false;
 		} 
 		else {
 			
-//			index = (int)(Math.random() * setS.size());
-//			System.out.println("Size: " + setS.size());
-//			System.out.println("Index " + index);
-//			l = setS.get(index);
-//			p.ajouterEssai(l);
-//			setS.remove(l);
-			l = setS.get(index);
-			System.out.println("l : "+ l);
-			setS.remove(l);
-			System.out.println("FFFFFFFF");
-			for (LigneProposition ligneProposition : setU) {
-				System.out.println(ligneProposition);
+			lastIndice = p.getIndices();
+			setU.remove(l);
+			
+			//testReponse(setS.get(0), l, lastIndice);
+			
+			for (int i = 0; i < setS.size()-1; i++) {
+				if(!testReponse(setS.get(i), l, lastIndice)) {
+					setS.remove(setS.get(i));
+					i--;
+				}
 			}
+			
+//			System.out.println("Etat de la liste setS : " );
+//			for (LigneProposition ligneProposition : setS) {
+//				System.out.println(ligneProposition.toString());
+//			}
+			
+			l = setS.get((int)(Math.random() * setS.size()));
+			p.ajouterEssai(l);
+			System.out.println("Proposition : " + l.toString());
+			setS.remove(l);
+			
 		}
 	
 
 		
+		
+	}
+	
+	public boolean testReponse(LigneProposition eachS, LigneProposition solutionTemp, LigneIndice reponse) {
+		//ArrayList<PionIndice> indice = new ArrayList<PionIndice>();
+		LigneIndice indice = new LigneIndice();
+		Boolean[] traiteSolution = new Boolean[p.getNbTrou()];
+		Boolean[] traiteProposition = new Boolean[p.getNbTrou()];
+			
+		//savoir si des pions sont a la bonne place
+		for(int i=0; i < p.getNbTrou(); i++) {
+			if(eachS.getAt(i) == solutionTemp.getAt(i)) {
+				indice.add(PionIndice.ROUGE);
+				traiteSolution[i] = true;
+				traiteProposition[i] = true;
+			}
+			else {
+				traiteSolution[i] = false;
+				traiteProposition[i] = false;
+				
+			}
+		}
+		
+		//savoir si il y a des pions à la mauvaise place
+		for(int i=0; i < p.getNbTrou(); i++) {
+			if(!traiteProposition[i]) {
+				for(int j=0; j < p.getNbTrou(); j++) {
+					if(eachS.getAt(i) == solutionTemp.getAt(j) && !traiteSolution[j]) {
+						indice.add(PionIndice.BLANC);
+						traiteProposition[i] = true;
+						traiteSolution[j] = true;
+						break;
+					}
+				}
+			}			
+		}
+		
+//		System.out.print("EACHS : " + eachS.toString());
+//		System.out.println("INDICE RENVOYE PAR LA FONCTION : " + indice.toString()+"\n");
+//		System.out.println("INDICE RECHERCHER : " + reponse.toString());
+//		
+//		System.out.println("BOOLEAN =  " + indice.isEqual(indice, reponse));
+		return indice.isEqual(indice, reponse);
 		
 	}
 

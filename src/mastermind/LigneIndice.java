@@ -26,6 +26,15 @@ public class LigneIndice {
 		}
 		return nbRouge;
 	}
+	public int nbIndiceBlanc() {
+		int nbBlanc = 0;
+		for (PionIndice i : listePions) {
+			if(i == PionIndice.BLANC) {
+				nbBlanc++;
+			}
+		}
+		return nbBlanc;
+	}
 	
 	public String toString() {
 		
@@ -38,4 +47,14 @@ public class LigneIndice {
 		return s;
 	}
 	
+	
+	public boolean isEqual(LigneIndice li1, LigneIndice li2) {
+		
+		return (li1.nbIndiceRouge() == li2.nbIndiceRouge() && li1.nbIndiceBlanc() == li2.nbIndiceBlanc());
+		
+	}
+	
 }
+
+
+

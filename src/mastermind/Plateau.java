@@ -31,8 +31,8 @@ public class Plateau {
 		return essais;
 	}
 
-	public ArrayList<LigneIndice> getIndices() {
-		return indices;
+	public LigneIndice getIndices() {
+		return indices.get(indices.size() - 1);
 	}
 
 	//Choisir le code secret
