@@ -1,6 +1,7 @@
 package jeu;
 
 import joueur.ia.IAJoueurPassif;
+import joueur.ia.IA_NonMinimax;
 import joueur.ia.IA_aleatoire;
 import joueur.ia.IA_minimax;
 import mastermind.CodeSolution;
@@ -11,8 +12,8 @@ public class Jeu {
 	private IAJoueurPassif passif;
 	private IA_minimax actif;
 	private Plateau p;
-	private int nbTrou = 2;
-	private int nbCouleur = 3;
+	private int nbTrou = 4;
+	private int nbCouleur = 6;
 	
 	public Jeu() {
 		p = new Plateau(nbTrou, nbCouleur);

@@ -12,6 +12,15 @@ public class LigneProposition {
 	}
 	
 
+	public LigneProposition(int a, int b, int c, int d) {
+		
+		 listeCouleurs = new int[4];
+		 listeCouleurs[0] = a;
+		 listeCouleurs[1] = b;
+		 listeCouleurs[2] = c;
+		 listeCouleurs[3] = d;
+	}
+	
 	public void setAt(int i, int color) {
 		
 		listeCouleurs[i] = color;

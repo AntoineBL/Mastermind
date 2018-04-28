@@ -186,12 +186,19 @@ public LinkedList<LigneIndice> createSetIndice() {
 						compteurMin = compteur;
 					}
 				}
-				if(compteurMin > scoreUMax ) {
+				if(compteurMin >= scoreUMax ) {
 					scoreUMax = compteurMin;
+					lpMax = lpu;
 				}
 			}
 			System.out.println("OKKKKKKKKKKK : " + scoreUMax );
+			System.out.println("VIRGILLLLE  !!!" + lpMax.toString());
 			
+			
+			l = setS.get((int)(Math.random() * setS.size()));
+			p.ajouterEssai(l);
+			System.out.println("Proposition : " + l.toString());
+			setS.remove(l);
 			
 		}
 	
