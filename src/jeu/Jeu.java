@@ -11,8 +11,8 @@ public class Jeu {
 	private IAJoueurPassif passif;
 	private IA_minimax actif;
 	private Plateau p;
-	private int nbTrou = 5;
-	private int nbCouleur = 10;
+	private int nbTrou = 2;
+	private int nbCouleur = 3;
 	
 	public Jeu() {
 		p = new Plateau(nbTrou, nbCouleur);

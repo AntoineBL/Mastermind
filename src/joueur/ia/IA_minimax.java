@@ -15,6 +15,7 @@ public class IA_minimax extends IA{
 
 	private List<LigneProposition> setS = new LinkedList<LigneProposition>();
 	private List<LigneProposition> setU;
+	private List<LigneIndice> setIndice = new LinkedList<LigneIndice>();
 	private boolean premierTour;
 	LigneProposition l = null;
 	LigneIndice lastIndice;
@@ -33,7 +34,23 @@ public class IA_minimax extends IA{
 //		setS.add(new LigneProposition(3,2));
 //		setS.add(new LigneProposition(3,3));
 		
+//		LigneIndice li1 = new LigneIndice();
+//		LigneIndice li2 = new LigneIndice();
+//		LigneIndice li3 = new LigneIndice();
+//		LigneIndice li4 = new LigneIndice();
+//		LigneIndice li5 = new LigneIndice();
+//		li2.add(PionIndice.BLANC);
+//		li3.add(PionIndice.BLANC); li2.add(PionIndice.BLANC);
+//		li4.add(PionIndice.ROUGE);
+//		li5.add(PionIndice.BLANC); li5.add(PionIndice.BLANC);
+//		setIndice.add(li1);
+//		setIndice.add(li2);
+//		setIndice.add(li3);
+//		setIndice.add(li4);
+//		setIndice.add(li5);
+//		
 		setS = createSet();
+		setIndice = createSetIndice();
 		
 		setU = new LinkedList<LigneProposition>(setS);
 
@@ -41,6 +58,7 @@ public class IA_minimax extends IA{
 	}
 	
 	public LinkedList<LigneProposition> createSet() {
+		
 		LinkedList<LigneProposition> l =  new LinkedList<>();
 		LigneProposition lp, lplast;
 		
@@ -76,6 +94,41 @@ public class IA_minimax extends IA{
 	}
 	
 	
+public LinkedList<LigneIndice> createSetIndice() {
+		
+		LinkedList<LigneIndice> l =  new LinkedList<>();
+		LigneIndice lp, lplast;
+		
+		int nbSeta = (int) Math.pow(3, p.getNbTrou());
+		
+		lp = new LigneIndice();
+
+		int k =0;
+		while(lp.nbIndiceBlanc() != p.getNbTrou()) {
+			
+			for(int i=k; i<=p.getNbTrou(); i++) {
+				lp = new LigneIndice();
+				for(int m = 0; m<k; m++) {
+					lp.add(PionIndice.BLANC);
+				}
+				
+				for(int j = k; j<i; j++) {
+					lp.add(PionIndice.ROUGE);
+				}
+
+				//if(lp.nbIndiceBlanc() != 1 || lp.nbIndiceRouge() != p.getNbTrou()-1) {
+					l.add(lp);
+				//}
+				
+			}
+			
+			k++;
+		}
+			
+		return l;
+		
+	}
+	
 	public void resolution() {
 		
 		int index = (int)(Math.random() * setS.size());
@@ -96,11 +149,12 @@ public class IA_minimax extends IA{
 			setU.remove(l);
 			
 			//testReponse(setS.get(0), l, lastIndice);
-			
-			for (int i = 0; i < setS.size()-1; i++) {
+			int size = setS.size();
+			for (int i = 0; i < size; i++) {
 				if(!testReponse(setS.get(i), l, lastIndice)) {
 					setS.remove(setS.get(i));
 					i--;
+					size--;
 				}
 			}
 			
@@ -109,10 +163,35 @@ public class IA_minimax extends IA{
 //				System.out.println(ligneProposition.toString());
 //			}
 			
-			l = setS.get((int)(Math.random() * setS.size()));
-			p.ajouterEssai(l);
-			System.out.println("Proposition : " + l.toString());
-			setS.remove(l);
+			//l = setS.get((int)(Math.random() * setS.size()));
+			//p.ajouterEssai(l);
+			//System.out.println("Proposition : " + l.toString());
+			//setS.remove(l);
+			
+			
+			int scoreUMax = 0;
+			LigneProposition lpMax = null;
+			for (LigneProposition lpu : setU) {
+				
+				int compteurMin = Integer.MAX_VALUE;
+				for (LigneIndice ligneI : setIndice) {
+					
+					int compteur = 0;
+					for (LigneProposition lps : setS) {
+						if(!testReponse(lps, lpu, ligneI)) {
+							compteur++;
+						}
+					}
+					if(compteur < compteurMin) {
+						compteurMin = compteur;
+					}
+				}
+				if(compteurMin > scoreUMax ) {
+					scoreUMax = compteurMin;
+				}
+			}
+			System.out.println("OKKKKKKKKKKK : " + scoreUMax );
+			
 			
 		}
 	
