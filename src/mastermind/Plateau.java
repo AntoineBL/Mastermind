@@ -14,7 +14,6 @@ public class Plateau {
 	public Plateau(int nbTrou, int nbCouleur) {
 		this.nbTrou = nbTrou;
 		this.nbCouleur = nbCouleur;
-		//this.codeSecret = new int[nbTrou];
 		essais = (new ArrayList<LigneProposition>());
 		indices = (new ArrayList<LigneIndice>());
 	}

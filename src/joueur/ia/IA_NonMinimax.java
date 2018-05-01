@@ -1,10 +1,7 @@
 package joueur.ia;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import mastermind.LigneIndice;
 import mastermind.LigneProposition;
@@ -23,16 +20,6 @@ public class IA_NonMinimax extends IA{
 		super(p);
 		premierTour = true;
 		
-//		setS.add(new LigneProposition(1,1));
-//		setS.add(new LigneProposition(1,2));
-//		setS.add(new LigneProposition(1,3));
-//		setS.add(new LigneProposition(2,1));
-//		setS.add(new LigneProposition(2,2));
-//		setS.add(new LigneProposition(2,3));
-//		setS.add(new LigneProposition(3,1));
-//		setS.add(new LigneProposition(3,2));
-//		setS.add(new LigneProposition(3,3));
-		
 		setS = createSet();
 		
 		setU = new LinkedList<LigneProposition>(setS);
@@ -40,6 +27,11 @@ public class IA_NonMinimax extends IA{
 
 	}
 	
+	
+	/**
+	 * Créer toutes les solutions possibles en fonction du nombre de couleur et de la taille du code a trouver
+	 * @return la liste de toutes les solutions
+	 */
 	public LinkedList<LigneProposition> createSet() {
 		LinkedList<LigneProposition> l =  new LinkedList<>();
 		LigneProposition lp, lplast;
@@ -67,26 +59,23 @@ public class IA_NonMinimax extends IA{
 						lp.setAt(j-1, lp.getAt(j-1)+1);
 					}
 				}
-			}
-			
+			}		
 			l.add(lp);
 		}
 			
 		return l;
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public void resolution() {
 		
 		int index = (int)(Math.random() * setS.size());
-		System.out.println("Size: " + setS.size());
-		System.out.println("Index " + index);
-
 		
 		if(premierTour) {
 			l = setS.get(index);
 			p.ajouterEssai(l);
-			System.out.println("Proposition : " + l.toString());
 			setS.remove(l);
 			premierTour = false;
 		} 
@@ -95,23 +84,15 @@ public class IA_NonMinimax extends IA{
 			lastIndice = p.getIndices();
 			setU.remove(l);
 			
-			//testReponse(setS.get(0), l, lastIndice);
-			
 			for (int i = 0; i < setS.size()-1; i++) {
 				if(!testReponse(setS.get(i), l, lastIndice)) {
 					setS.remove(setS.get(i));
 					i--;
 				}
 			}
-			
-//			System.out.println("Etat de la liste setS : " );
-//			for (LigneProposition ligneProposition : setS) {
-//				System.out.println(ligneProposition.toString());
-//			}
-			
+
 			l = setS.get((int)(Math.random() * setS.size()));
 			p.ajouterEssai(l);
-			System.out.println("Proposition : " + l.toString());
 			setS.remove(l);
 			
 		}
@@ -121,8 +102,15 @@ public class IA_NonMinimax extends IA{
 		
 	}
 	
+	/**
+	 * 
+	 * @param eachS
+	 * @param solutionTemp
+	 * @param reponse
+	 * @return
+	 */
 	public boolean testReponse(LigneProposition eachS, LigneProposition solutionTemp, LigneIndice reponse) {
-		//ArrayList<PionIndice> indice = new ArrayList<PionIndice>();
+
 		LigneIndice indice = new LigneIndice();
 		Boolean[] traiteSolution = new Boolean[p.getNbTrou()];
 		Boolean[] traiteProposition = new Boolean[p.getNbTrou()];
@@ -155,11 +143,6 @@ public class IA_NonMinimax extends IA{
 			}			
 		}
 		
-//		System.out.print("EACHS : " + eachS.toString());
-//		System.out.println("INDICE RENVOYE PAR LA FONCTION : " + indice.toString()+"\n");
-//		System.out.println("INDICE RECHERCHER : " + reponse.toString());
-//		
-//		System.out.println("BOOLEAN =  " + indice.isEqual(indice, reponse));
 		return indice.isEqual(indice, reponse);
 		
 	}

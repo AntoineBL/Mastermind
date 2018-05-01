@@ -23,10 +23,11 @@ public class IAJoueurPassif extends IA{
 		return code;
 	}
 
-
-	//ajout les indices pour le dernier essai
+	/**
+	 * Indique les indices en fonction du dernier essai et de la solution
+	 */
 	public void resolution() {
-		//ArrayList<PionIndice> indice = new ArrayList<PionIndice>();
+
 		LigneIndice indice = new LigneIndice();
 		Boolean[] traiteSolution = new Boolean[p.getNbTrou()];
 		Boolean[] traiteProposition = new Boolean[p.getNbTrou()];
@@ -59,13 +60,15 @@ public class IAJoueurPassif extends IA{
 			}			
 		}
 		
-		System.out.println(indice.toString()+"\n");
 		p.ajouterIndice(indice);
 		
 	}
 	
 	
-	//choisir le code a trouver
+	/**
+	 * indique au plateau de jeu le code secret
+	 * @param c : code secret à trouver
+	 */
 	public void choisirCode(CodeSolution c) {
 		
 		c.createRandom();

@@ -17,6 +17,10 @@ public class CodeSolution {
 		return listeCouleurs;
 	}
 	
+	
+	/**
+	 * Créer le code secret aléatoirment
+	 */
 	public void createRandom() {
 			
 		for(int i = 0; i < size; i++) {

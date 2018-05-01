@@ -11,8 +11,10 @@ public class IA_aleatoire extends IA{
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	//choisir un code aleatoirement
+
+	/**
+	 * choisir un code/proposition aleatoirement
+	 */
 	public void resolution() {
 		LigneProposition essai = new LigneProposition(p.getNbTrou());
 		
@@ -20,7 +22,6 @@ public class IA_aleatoire extends IA{
 			essai.setAt(i, 1 + (int)(Math.random() * ((p.getNbCouleur() -1))));
 		}
 		
-		System.out.println("Proposition de l'IA :" + essai.toString());
 		p.ajouterEssai(essai);
 	}
 
