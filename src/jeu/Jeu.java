@@ -17,25 +17,53 @@ public class Jeu {
 	private Plateau p;
 	private int nbTrou = 4;
 	private int nbCouleur = 6;
-	
+
 	public Jeu() {
 		p = new Plateau(nbTrou, nbCouleur);
 		passif= new IAJoueurPassif(p);
+
+	}
+
+
+	public void jouer() {
+		boolean jouer = true;
+		
+		while(jouer) {
+			System.out.println("Choisir l'IA pour résoudre le Mastermind : ");
+			System.out.println("1 - IA aléatoire");
+			System.out.println("2 - IA sans minimax");
+			System.out.println("3 - IA avec minimax");
+			System.out.println("4 - arrêter de jouer");
+
+			Scanner sc = new Scanner(System.in);
+			String str = sc.nextLine();
+
+
+			switch(str){
+			case "1" : actif = new IA_aleatoire(p); System.out.println("IA aléatoire"); break;
+			case "2" : actif = new IA_NonMinimax(p); System.out.println("IA sans minimax"); break;
+			case "4" : jouer = false;  System.out.println("stop"); break;
+			default : actif = new IA_minimax(p); System.out.println("IA avec minimax"); break;
+			}
+			
+			if(jouer) {
+				jeu();
+			}
+			
+			System.out.print("\n\n\n");
+		}
 		
 	}
-	
-	
-	public void jouer() {
+
+	public void jeu() {
 		
-		shooseIA();
-		
+
 		//choisir le code secret
 		passif.choisirCode(new CodeSolution(nbTrou, nbCouleur));
-		
-		
+
 		//boucle de jeu
 		int nbTour = 0;
-		 do{
+		do{
 
 			nbTour++;
 			System.out.println("--------");
@@ -45,29 +73,11 @@ public class Jeu {
 			System.out.print("Proposition: "+p.getLastLigneProposition().toString());
 			passif.resolution();
 			System.out.println("  ---  Indice : "+p.getIndices().toString()+"\n");
-			
+
 		}while (p.getNbRouge() < nbTrou);
-		 
+
 		System.out.print("vous avez gnagné en "+nbTour+ " coups. La réponse est :");
 		System.out.print(passif.getCode().toString());
 	}
-	
-	
-	public void shooseIA() {
-		
-		System.out.println("Choisir l'IA pour résoudre le Mastermind : ");
-		System.out.println("1 - IA aléatoire");
-		System.out.println("2 - IA sans minimax");
-		System.out.println("3 - IA avec minimax");
-		
-		Scanner sc = new Scanner(System.in);
-		String str = sc.nextLine();
-		
-		
-		switch(str){
-			case "1" : actif = new IA_aleatoire(p); System.out.println("IA aléatoire"); break;
-			case "2" : actif = new IA_NonMinimax(p); System.out.println("IA sans minimax"); break;
-			default : actif = new IA_minimax(p); System.out.println("IA avec minimax"); break;
-		}
-	}
+
 }

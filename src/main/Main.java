@@ -1,3 +1,4 @@
+package main;
 import jeu.Jeu;
 
 public class Main {
